@@ -7,7 +7,7 @@ def start_temperature_input():
     # return int(input("Enter starting temperature: "))
 
 
-def simple_euler(T0, Tenv, k, tend, h): # Numerical integration method
+def simple_euler(T0, Tenv, k, tend, h):  # Numerical integration method
 
     def f(t, T):
         return -k*(T-Tenv)
@@ -30,12 +30,14 @@ def simple_euler(T0, Tenv, k, tend, h): # Numerical integration method
 
     return result  # Values of the function T(t)
 
-def kettle_solution(T0,Tenv,k,tend):
-    l=[]
+
+def kettle_solution(T0, Tenv, k, tend):
+    l = []
     for t in range(tend+1):
-        T=(T0-Tenv) * math.exp(-k*t)+Tenv
+        T = (T0-Tenv) * math.exp(-k*t)+Tenv
         l.append(T)
     return l
+
 
 def output_as_table(series):
     print("Time series is following:")
@@ -45,37 +47,39 @@ def output_as_table(series):
         t = t + 1
 
 
-def plot_function(series1,series2):
+def plot_function(series1, series2):
     plt.plot(series1)
     plt.plot(series2)
     plt.show()
 
-def plot_difference(s1,s2):
-    
+
+def plot_difference(s1, s2):
+
     # assert len(s1)==len(s2)
     l1 = len(s1)
     l2 = len(s2)
-    
-    d=[]
-    for i in range(min(l1,l2)):
+
+    d = []
+    for i in range(min(l1, l2)):
         d.append(s1[i]-s2[i])
 
     plt.plot(d)
     plt.show()
 
+
 def main():
     print("Calculating temperature of a kettle in time")
     T0 = start_temperature_input()
-    
+
     # T(t), t\in[0,tend]
     Tenv = 24
     h = 1
     tend = 60
     k = 0.1
-    Tnum  = simple_euler(T0, Tenv=Tenv, h=h, tend=tend, k=k)
+    Tnum = simple_euler(T0, Tenv=Tenv, h=h, tend=tend, k=k)
     Tprec = kettle_solution(T0, Tenv=Tenv, tend=tend, k=k)
     # plot_function(Tnum,Tprec)
-    plot_difference(Tnum,Tprec)
+    plot_difference(Tnum, Tprec)
 
-main()
-quit()
+# main()
+# quit()
